@@ -1,0 +1,27 @@
+{% extends 'homepage/base.html' %}
+
+{% block content %}
+
+    <h1> Login </h1>
+
+    {% if message %}
+
+        <div>
+            {{ message }}
+        </div>
+
+    {% endif %}
+
+    <form  action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+        Username: <input name="username" type="text">
+        <br>
+        Password: <input name="password" type="password">
+        <br>
+        <input type="submit" value="Login">
+    </form>
+    <br>
+    If you have never been to this website before,
+    <a href="{% url 'register' %}">click here to register.</a>
+
+{% endblock content %}
