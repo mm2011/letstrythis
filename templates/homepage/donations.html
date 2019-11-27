@@ -1,0 +1,36 @@
+{% extends 'homepage/base.html' %}
+
+{% block content %}
+
+    <h1> Donations! </h1>
+
+    {% if message %}
+
+        <div>
+            {{ message }}
+        </div>
+
+    {% endif %}
+
+    <button onclick="displayMessage(1)">$1,000</button><br>
+    <button onclick="displayMessage(2)">$10</button><br>
+    <button onclick="displayMessage(3)">Maybe next time</button><br>
+
+
+    <br>
+    <script>
+
+         function displayMessage(x) {
+             if(x == 1)
+             { alert("Thank you so much!"); }
+             if(x == 2)
+             { alert("It's holiday season, you could do better"); }
+             if(x == 3)
+             { alert("Really"); }
+         };
+
+    </script>
+
+    <a href="{% url 'index' %}">Return to the homepage</a>
+
+{% endblock content %}

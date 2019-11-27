@@ -1,8 +1,23 @@
 {% extends 'homepage/base.html' %}
 
+{% block title %}Register Page{% endblock %}
+
+{% block script %}
+    <script src="jquery-3.4.1.min.js">
+
+
+
+    </script>
+{% endblock %}
+
 {% block content %}
 
     <h1>Register Page</h1>
+
+
+    {% for message in messages %}
+        <h3 style="color: red">{{ message }}</h3>
+    {% endfor %}
 
     <form action="{% url 'register' %}" method="post">
     {% csrf_token %}

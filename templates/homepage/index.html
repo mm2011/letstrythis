@@ -7,10 +7,15 @@
 
     {% if user.is_authenticated %}
         <h1>Welcome, {{ user.username }}!</h1>
-        <a href="{% url 'logout' %}">Logout</a>
+        <a href="https://www.youtube.com/">Videos!</a><br>
+        <a href="https://ifunny.co/">Laugh out loud</a><br>
+        <a href="{% url 'donations' %}">Make Donations!</a><br>
+        <a href="{% url 'logout' %}">Logout</a><br>
     {% else %}
-        <a href={% url 'login' %}>Login</a>
-        <a href={% url 'register'%}>Register</a>
+        <a href={% url 'login' %}>Login</a><br>
+        <a href={% url 'register'%}>Register</a><br>
     {% endif %}
+
+
 
 {% endblock %}

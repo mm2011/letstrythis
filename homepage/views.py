@@ -4,8 +4,23 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User, auth
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.decorators import login_required
+from DBapp.models import Question, Answer
 
 # Create your views here.
+
+#def quiz(request):
+    #if request.user.is_authenticated:
+        #allQuestions = Question.objects.all()
+        #allAnswers = Answer.objects.all()
+        #for q in allQuestions:
+         #   for a in allAnswers:
+         #       if q.questionID == a.questionID:
+
+
+
+def donations(request):
+    if request.user.is_authenticated:
+        return render(request, 'homepage/donations.html')
 
 def index(request):
     if not request.user.is_authenticated:
@@ -42,6 +57,40 @@ def register(request):
         password = request.POST['password']
         password2 = request.POST['password2']
 
+        #validate all fields have text
+
+        emptyField = False
+        Message = ""
+        if first_name == "":
+            emptyField = True
+            Message = Message+"  'first name'  "
+        if last_name == "":
+            emptyField = True
+            Message = Message+"  'last name'  "
+        if email == "":
+            emptyField = True
+            Message = Message+"  'email'  "
+        if username == "":
+            emptyField = True
+            Message = Message+"  'username'  "
+        if password == "":
+            emptyField = True
+            Message = Message+"  'password'  "
+        if password2 == "":
+            emptyField = True
+            Message = Message+"  'confirm password'  "
+        if emptyField == True:
+            print("The following cannot be empty:"+Message)
+            messages.info(request, "The following cannot be empty:"+Message)
+            return redirect('register')
+
+
+
+
+
+
+
+        #validate if form fields are full
         if password == password2:
             if User.objects.filter(username = username).exists():
                 print("Username already exists")
