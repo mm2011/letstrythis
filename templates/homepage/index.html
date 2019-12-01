@@ -1,21 +1,55 @@
 {% extends 'homepage/base.html' %}
 {% block title %} Home {% endblock %}
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock %}
 
 {% block content %}
 
-    {% load static %}
+
 
     {% if user.is_authenticated %}
+        <body onload= "startTime()">
         <h1>Welcome, {{ user.username }}!</h1>
-        <a href="https://www.youtube.com/">Videos!</a><br>
-        <a href="https://ifunny.co/">Laugh out loud</a><br>
-        <a href="{% url 'donations' %}">Make Donations!</a><br>
-        <a href="{% url 'logout' %}">Logout</a><br>
+        <div id="div1">
+            <ul>
+                <li><a href="https://www.youtube.com/" target="_blank">Videos!</a></li>
+                <li><a href="https://ifunny.co/" target="_blank">Laugh out loud</a></li>
+                <li><a href="{% url 'donations' %}">Make Donations!</a></li>
+                <li><a id="logout" href="{% url 'logout' %}">Logout</a></li>
+                <li><a href="{% url 'quiz' %}">Take a quiz!</a></li>
+            </ul>
+        </div>
+        <div2>
+            <li><a href = "mailto:chen.x@my.ccsu.edu">Contact support</a></li>
+        </div2>
+        <p>Current Time:<span id ='txt'></span></p>
+        <form>
+            <textarea>Write a bio!</textarea>
+        </form>
     {% else %}
-        <a href={% url 'login' %}>Login</a><br>
-        <a href={% url 'register'%}>Register</a><br>
+            <li><a href={% url 'login' %}>Login</a></li>
+            <li><a href={% url 'register'%}>Register</a></li>
     {% endif %}
-
-
-
+    <script>
+        function startTime() {
+            var today = new Date();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            var s = today.getSeconds();
+            m = checkTime(m);
+            s = checkTime(s);
+            document.getElementById('txt').innerHTML = h + ":" + m + ":" + s;
+            var t = setTimeout(startTime, 500);
+        }
+        function checkTime(i) {
+            if (i < 10) {
+                i = "0" + i
+            }
+            ;  // add zero in front of numbers < 10
+            return i;
+        }
+    </script>
+        </body>
 {% endblock %}

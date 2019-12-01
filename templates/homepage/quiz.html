@@ -1,8 +1,55 @@
+{% extends 'homepage/base.html' %}
 {% block title %}Quiz!{% endblock %}
 
 {% block content %}
-    {% for foo in  %}
-    
+
+    <div id="labelCorrect"># of Correct Answers: <span id="numCorrect">0</span></div><br>
+    {% for q in questions %}
+        <div id="div{{ q.questionID }}" style="margin-bottom:25px"></div>
+        <div id="hide{{ q.questionID }}">
+        <p>{{ q.questionText }}</p>
+
+
+        {% for a in answers %}
+            {% if q.questionID == a.questionID %}
+
+                <input type="radio" name="{{ a.questionID }}" value="{{ a.answerText }}">{{ a.answerText }}<br>
+
+
+
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        $("input[name='{{ a.questionID }}']").click(function(){
+            var checked = $("input[name='{{ q.questionID }}']:checked").val();
+            $.ajax(
+                {
+                    type: "GET",
+                    url: "/isCorrect",
+                    data: {
+                        answer: checked,
+                        quizID: {{ quizID }}
+                    },
+                    success: function(result)
+                    {
+                        $("#div{{ q.questionID }}").text(result);
+                        $("#hide{{ q.questionID }}").hide();
+
+                }});
+            });
+    });
+
+</script>
+
+            {% endif %}
+        {% endfor %}
+        </div>
     {% endfor %}
-    
+
+
+
 {% endblock %}
+
+
+

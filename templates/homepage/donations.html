@@ -1,25 +1,29 @@
 {% extends 'homepage/base.html' %}
 
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/donations.css' %}">
+{% endblock %}
+
 {% block content %}
 
-    <h1> Donations! </h1>
-
     {% if message %}
-
         <div>
             {{ message }}
         </div>
-
     {% endif %}
 
-    <button onclick="displayMessage(1)">$1,000</button><br>
-    <button onclick="displayMessage(2)">$10</button><br>
-    <button onclick="displayMessage(3)">Maybe next time</button><br>
-
-
+    <h1>Please support us to build better website!</h1>
+    <img src="{% static '/img/donate-drawings-750.jpg' %}" alt="donations image">
+    <br>
+    <div id="outer">
+        <button class="inner" onclick="displayMessage(1)">$1,000</button><br><br>
+        <button class="inner" onclick="displayMessage(2)">$10</button><br><br>
+        <button class="inner" onclick="displayMessage(3)">Maybe next time</button><br>
+    </div>
     <br>
     <script>
-
          function displayMessage(x) {
              if(x == 1)
              { alert("Thank you so much!"); }
@@ -28,7 +32,6 @@
              if(x == 3)
              { alert("Really"); }
          };
-
     </script>
 
     <a href="{% url 'index' %}">Return to the homepage</a>

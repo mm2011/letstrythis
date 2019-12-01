@@ -2,32 +2,32 @@
 
 {% block title %}Register Page{% endblock %}
 
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/register.css'%}">
+{% endblock %}
+
 {% block script %}
     <script src="jquery-3.4.1.min.js">
-
-
-
     </script>
 {% endblock %}
 
 {% block content %}
 
-    <h1>Register Page</h1>
-
-
+    <h1>Sign Up</h1>
     {% for message in messages %}
         <h3 style="color: red">{{ message }}</h3>
     {% endfor %}
 
-    <form action="{% url 'register' %}" method="post">
-    {% csrf_token %}
-        First name:         <input type="text" name="first_name" placeholder="Your first name"><br>
-        Last name:          <input type="text" name="last_name" placeholder="Your last name"><br>
-        Email:              <input type="text" name="email" placeholder="Your email"><br>
-        {#    Phone should be here    #}
-        Username:           <input type="text" name="username" placeholder="Create a username"><br>
-        Password:           <input type="password" name="password" placeholder="Password"><br>
-        Confirm Password:   <input type="password" name="password2" placeholder="Retype password"><br>
+        <form  action="{% url 'register' %}" method="post">
+        {% csrf_token %}
+            First name: <input type="text" name="first_name" placeholder="Your first name"><br>
+            Last name:  <input type="text" name="last_name" placeholder="Your last name"><br>
+            Email:       <input type="text" name="email" placeholder="Your email"><br>
+            Username:    <input type="text" name="username" placeholder="Create a username"><br>
+            Password:     <input type="password" name="password" placeholder="Password"><br>
+            Confirm Password:   <input type="password" name="password2" placeholder="Retype password"><br><br>
         <input type="submit" value="Register">
     </form>
     <br>
