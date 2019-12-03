@@ -1,0 +1,16 @@
+{% extends 'homepage/base.html' %}
+{% load static %}
+{% block title %}Quiz Scores{% endblock %}
+
+{% block styles %}{% endblock %}
+
+{% block content %}
+
+    <h3>Scores for {{ username }}:</h3>
+    <ul>
+    {% for q in quizlist %}
+       <li>{{ q.numCorrect }}/{{ q.numQuestions }}</li><br>
+    {% endfor %}
+    </ul>
+    <a href="{% url 'index' %}">Return to home page</a>
+{% endblock %}

@@ -17,8 +17,9 @@
                 <li><a href="https://www.youtube.com/" target="_blank">Videos!</a></li>
                 <li><a href="https://ifunny.co/" target="_blank">Laugh out loud</a></li>
                 <li><a href="{% url 'donations' %}">Make Donations!</a></li>
-                <li><a id="logout" href="{% url 'logout' %}">Logout</a></li>
                 <li><a href="{% url 'quiz' %}">Take a quiz!</a></li>
+                <li><a id="logout" href="{% url 'logout' %}">Logout</a></li>
+
             </ul>
         </div>
         <div2>
@@ -26,13 +27,40 @@
         </div2>
         <p>Current Time:<span id ='txt'></span></p>
         <form>
-            <textarea>Write a bio!</textarea>
+            <textarea id="bio">{{ userBio }}</textarea><br>
+            <button type="button">Save Bio</button>
         </form>
     {% else %}
             <li><a href={% url 'login' %}>Login</a></li>
             <li><a href={% url 'register'%}>Register</a></li>
     {% endif %}
-    <script>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function(){
+            $("button").click(function(){
+                let bio = document.getElementById("bio").value;
+                $.ajax({
+                    type:'GET',
+                    url: {% url 'saveBio' %},
+                    data:{
+                        bio: bio
+                    },
+                    success:function(result) {
+                        alert(result);
+                    }
+                });
+            })
+        });
+
+
+
+
+
         function startTime() {
             var today = new Date();
             var h = today.getHours();
@@ -51,5 +79,6 @@
             return i;
         }
     </script>
+
         </body>
 {% endblock %}

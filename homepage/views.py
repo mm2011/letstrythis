@@ -10,27 +10,28 @@ from .models import People, Score
 
 
 # Create your views here.
-def getScore(request):
-    if request.method == 'POST':
-        None
-
+def saveBio(request):
     if request.method == 'GET':
-        if request.user.is_authenticated:
-            username = request.user.username
-            score = request.GET['score']
-            n = Question.objects.all()
-            denom = 0
-            for i in n:
-                denom += 1
-            score = score / denom
-            # Scores.objects.create(username=username, userScore=score)
-            return HttpResponse("Submitted Successfully!")
+        bioInput = request.GET['bio']
+        obj = People.objects.get(username=request.user.username)
+        obj.bio = bioInput
+        obj.save()
+        result = "Saved!"
+        return HttpResponse(result)
+
+def getScore(request):
+    if request.method == 'GET':
+        quizlist = Score.objects.filter(username=request.user.username).order_by('-id')
+        currentScore = quizlist[0]
+        context = {'quizlist' : quizlist, 'username' : request.user.username, 'currentScore' : currentScore}
+        return render(request, 'homepage/getScore.html', context)
 
 
 def isCorrect(request):
     if request.method == 'GET':
         answer = request.GET['answer']
-        answerTemp = Answer.objects.get(answerText=answer)
+        answerID = request.GET['answerID']
+        answerTemp = Answer.objects.get(answerText=answer, questionID=answerID)
         quizID = request.GET['quizID']
         #numQuestions = request.GET['numQuestions']
         if answerTemp.isRight:
@@ -81,7 +82,8 @@ def index(request):
     if not request.user.is_authenticated:
         return render(request, 'homepage/login.html', {'message': None})
     else:
-        context = {'user': request.user}
+        userBio = People.objects.get(username=request.user.username)
+        context = {'user': request.user, 'userBio' : userBio.bio}
         return render(request, 'homepage/index.html', context)
 
 
@@ -221,7 +223,7 @@ def register(request):
                 User.objects.create_user(first_name=first_name, last_name=last_name, email=email,
                                          username=username, password=password)
                 # save person to database
-                People.objects.create(username=username, firstName=first_name)
+                People.objects.create(username=username, firstName=first_name, hashPass=hash(password))
                 return render(request, 'homepage/login.html')
         else:
             print("Passwords do not match!")

@@ -11,5 +11,6 @@ urlpatterns = [
     path('quiz/', views.quiz, name='quiz'),
     path('isCorrect/', views.isCorrect, name='isCorrect'),
     path('checkLogin/', views.checkLogin, name='checkLogin'),
-    path('getScore/', views.getScore, name='getScore')
+    path('getScore/', views.getScore, name='getScore'),
+    path('saveBio/', views.saveBio, name='saveBio'),
 ]

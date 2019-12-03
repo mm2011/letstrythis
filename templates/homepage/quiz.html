@@ -1,21 +1,25 @@
 {% extends 'homepage/base.html' %}
 {% block title %}Quiz!{% endblock %}
-
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/quiz.css' %}">
+{% endblock %}
 {% block content %}
 
-    <div id="labelCorrect"># of Correct Answers: <span id="numCorrect">0</span></div><br>
+    <h1>CS 416 Quiz</h1>
+    <h4>Good luck!</h4>
+
     {% for q in questions %}
-        <div id="div{{ q.questionID }}" style="margin-bottom:25px"></div>
+        <div id="border" style="border-width: 5px; border-color: grey">
+        <div id="div{{ q.questionID }}" style="margin-bottom:30px"></div>
         <div id="hide{{ q.questionID }}">
-        <p>{{ q.questionText }}</p>
+        <p><strong>{{ q.questionID|add:1 }}) {{ q.questionText }}</strong></p>
 
 
         {% for a in answers %}
             {% if q.questionID == a.questionID %}
 
-                <input type="radio" name="{{ a.questionID }}" value="{{ a.answerText }}">{{ a.answerText }}<br>
-
-
+                <input type="radio" name="{{ a.questionID }}" value="{{ a.answerText }}">&nbsp;{{ a.answerText }}<br>
 
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
@@ -29,6 +33,7 @@
                     url: "/isCorrect",
                     data: {
                         answer: checked,
+                        answerID: {{ a.questionID }},
                         quizID: {{ quizID }}
                     },
                     success: function(result)
@@ -43,9 +48,12 @@
 </script>
 
             {% endif %}
+            </div>
         {% endfor %}
         </div>
     {% endfor %}
+    <br>
+    <a href="{% url 'getScore' %}">Submit and see scores</a>
 
 
 
