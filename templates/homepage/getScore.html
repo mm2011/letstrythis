@@ -5,12 +5,12 @@
 {% block styles %}{% endblock %}
 
 {% block content %}
-
+    <a href="{% url 'index' %}">Return to home page</a><br>
     <h3>Scores for {{ username }}:</h3>
     <ul>
     {% for q in quizlist %}
        <li>{{ q.numCorrect }}/{{ q.numQuestions }}</li><br>
     {% endfor %}
     </ul>
-    <a href="{% url 'index' %}">Return to home page</a>
+
 {% endblock %}

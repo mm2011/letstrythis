@@ -8,8 +8,8 @@ class People(models.Model):
     bio = models.TextField(max_length=1000, default="Write a bio!")
     hashPass = models.CharField(max_length=30)
 
-    def __str__(self):
-        return f"{self.username}, {self.firstName}"
+    #def __str__(self):
+     #   return f"{self.username}, {self.firstName}"
 
 
 class Score(models.Model):
@@ -17,5 +17,5 @@ class Score(models.Model):
     numQuestions = models.PositiveIntegerField(default=0)
     numCorrect = models.PositiveIntegerField(default=0)
 
-    def __str__(self):
-        return f"{self.username}: {self.numCorrect}/{self.numQuestions}"
+    #def __str__(self):
+     #   return f"{self.username}: {self.numCorrect}/{self.numQuestions}"

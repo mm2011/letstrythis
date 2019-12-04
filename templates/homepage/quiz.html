@@ -10,16 +10,18 @@
     <h4>Good luck!</h4>
 
     {% for q in questions %}
-        <div id="border" style="border-width: 5px; border-color: grey">
-        <div id="div{{ q.questionID }}" style="margin-bottom:30px"></div>
+
+        <div id="div{{ q.questionID }}" style="margin-bottom:30px; margin-top:30px"></div>
         <div id="hide{{ q.questionID }}">
         <p><strong>{{ q.questionID|add:1 }}) {{ q.questionText }}</strong></p>
 
 
         {% for a in answers %}
+
             {% if q.questionID == a.questionID %}
 
-                <input type="radio" name="{{ a.questionID }}" value="{{ a.answerText }}">&nbsp;{{ a.answerText }}<br>
+
+                    <input type="radio" name="{{ a.questionID }}" value="{{ a.answerText }}">{{ a.answerText }}<br>
 
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
@@ -40,7 +42,6 @@
                     {
                         $("#div{{ q.questionID }}").text(result);
                         $("#hide{{ q.questionID }}").hide();
-
                 }});
             });
     });
@@ -48,7 +49,7 @@
 </script>
 
             {% endif %}
-            </div>
+
         {% endfor %}
         </div>
     {% endfor %}
